@@ -9,7 +9,7 @@ services:
   mysql:
     container_name: mysql
     volumes:
-      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf:ro
       - mysql_volume:/var/lib/mysql:rw
     environment:
       TZ: Asia/Tokyo
@@ -19,16 +19,16 @@ services:
       MYSQL_DATABASE: test
     networks:
       - compose_network
-    build: ./mysql
+    build: ./docker/mysql
   php:
     container_name: php
     volumes:
-      - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
-      - ..:/var/www:rw
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
+      - ./:/var/www:rw
     environment:
       TZ: Asia/Tokyo
     ports:
       - 80:80
     networks:
       - compose_network
-    build: ./php
+    build: ./docker/php
